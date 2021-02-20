@@ -1,4 +1,8 @@
 spring:
+  security:
+    user:
+      name: zmp
+      password: 123
   profiles:
     active: dev
 

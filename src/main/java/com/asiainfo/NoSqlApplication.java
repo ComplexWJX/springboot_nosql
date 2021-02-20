@@ -5,9 +5,11 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
-@EnableAutoConfiguration
-@ComponentScan(basePackages = {"com.asiainfo"})
+@SpringBootApplication(
+//        exclude = {org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class}
+        )
+//@EnableAutoConfiguration
+//@ComponentScan(basePackages = {"com.asiainfo"})
 public class NoSqlApplication {
     public static void main(String[] args) {
         SpringApplication.run(NoSqlApplication.class,args);

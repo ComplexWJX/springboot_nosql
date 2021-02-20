@@ -135,6 +135,18 @@
             <version>RELEASE</version>
         </dependency>
 
+        <!--servlet api-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>springboot</finalName>
