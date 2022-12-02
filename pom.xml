@@ -151,7 +151,7 @@
 
     <modules>
         <module>mongodb</module>
-        <module>redis</module>
+        <module>redis</module><module>memcache</module>
     </modules>
 
     <build>

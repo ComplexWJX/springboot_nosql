@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * redis客户端创建 1.单机 2.集群 3.哨兵 4.订阅
  * @author Koala
  * @description
  * @date 2020/2/16 0016
