@@ -6,21 +6,22 @@ import org.springframework.stereotype.Service;
 import com.asiainfo.service.FunctionService;
 import com.asiainfo.service.IUserService;
 
+/**
+ * @author rukawa
+ */
 @Service
 public class UserServiceImpl implements IUserService {
 
     @Autowired
-    FunctionService functionService;
+    private FunctionService functionService;
 
-//    public FunctionService getFunctionService()
-//    {
-//        return functionService;
-//    }
-//
-//    public void setFunctionService(FunctionService functionService)
-//    {
-//        this.functionService = functionService;
-//    }
+    public FunctionService getFunctionService() {
+        return functionService;
+    }
+
+    public void setFunctionService(FunctionService functionService) {
+        this.functionService = functionService;
+    }
 
     @Override
     public Object sayHello(String name) {

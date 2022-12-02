@@ -10,15 +10,15 @@ import com.asiainfo.service.impl.UserServiceImpl;
 
 @Configuration
 public class JavaConfig {
-//    @Bean
-//    public FunctionService functionService(){
-//        return new FunctionServiceImpl();
-//    }
-//
-//    @Bean
-//    public IUserService iUserService(FunctionService functionService){
-//        UserServiceImpl userServiceImpl = new UserServiceImpl();
-//        userServiceImpl.setFunctionService(functionService);
-//        return userServiceImpl;
-//    }
+    @Bean
+    public FunctionService functionService(){
+        return new FunctionServiceImpl();
+    }
+
+    @Bean
+    public IUserService iUserService(FunctionService functionService){
+        UserServiceImpl userServiceImpl = new UserServiceImpl();
+        userServiceImpl.setFunctionService(functionService);
+        return userServiceImpl;
+    }
 }

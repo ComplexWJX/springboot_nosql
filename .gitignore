@@ -1,0 +1,25 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+mongodb/src/
+redis/src/main/java/com/asiainfo/connection/
+redis/src/main/java/com/asiainfo/operation/hash/
+redis/src/main/java/com/asiainfo/operation/set/
+redis/src/main/java/com/asiainfo/operation/string/
+redis/src/main/java/com/asiainfo/operation/zset/
+redis/src/main/resources/
+redis/src/test/
+src/test/
+target/classes/com/asiainfo/NoSqlApplication.class
+target/classes/com/asiainfo/redis/
+target/classes/com/asiainfo/util/MD5Util.class
+target/classes/com/asiainfo/web/
+target/classes/config/
+target/generated-sources/
+target/test-classes/

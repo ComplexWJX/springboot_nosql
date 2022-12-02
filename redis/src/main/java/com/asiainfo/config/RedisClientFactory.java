@@ -1,15 +1,16 @@
-package com.asiainfo.redis;
+package com.asiainfo.config;
 
+import io.lettuce.core.AbstractRedisClient;
 import io.lettuce.core.RedisClient;
-import io.lettuce.core.RedisFuture;
 import io.lettuce.core.RedisURI;
+import io.lettuce.core.api.StatefulConnection;
 import io.lettuce.core.api.StatefulRedisConnection;
-import io.lettuce.core.api.async.RedisAsyncCommands;
+import io.lettuce.core.api.sync.RedisCommands;
 import io.lettuce.core.cluster.RedisClusterClient;
 import io.lettuce.core.cluster.api.StatefulRedisClusterConnection;
 import io.lettuce.core.cluster.api.async.RedisAdvancedClusterAsyncCommands;
+import io.lettuce.core.codec.StringCodec;
 import redis.clients.jedis.HostAndPort;
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 
 import java.util.ArrayList;
@@ -23,18 +24,13 @@ import java.util.Set;
  * @date 2020/2/16 0016
  */
 public class RedisClientFactory {
-    public static void main(String[] args) {
-        getInstance().getLettuceClient();
+
+    public RedisClient getLettuceClientStandalone() {
+        //单机
+        return RedisClient.create("redis://@192.168.3.31:6379");
     }
 
-    void getLettuceClient(){
-        //单机
-        RedisClient redisClient = RedisClient.create("redis://@192.168.3.31:6379");
-        StatefulRedisConnection<String, String> connect = redisClient.connect();
-        RedisAsyncCommands<String, String> singleAsync = connect.async();
-        RedisFuture<String> redisFuture = singleAsync.get("name");
-
-
+    public RedisClusterClient getLettuceClientCluster() {
         //集群
         List<RedisURI> list = new ArrayList<>();
         list.add(RedisURI.create("redis://192.168.3.31:6379"));
@@ -43,25 +39,10 @@ public class RedisClientFactory {
         list.add(RedisURI.create("redis://192.168.3.19:6379"));
         list.add(RedisURI.create("redis://192.168.3.19:6380"));
         list.add(RedisURI.create("redis://192.168.3.19:6381"));
-        RedisClusterClient clusterClient = RedisClusterClient.create(list);
-        StatefulRedisClusterConnection<String, String> clusterConnection = clusterClient.connect();
-        RedisAdvancedClusterAsyncCommands<String, String> clusterAsyncCommands = clusterConnection.async();
-        RedisFuture<String> clusterFuture = clusterAsyncCommands.get("name");
-
-        try {
-//            System.out.println(redisFuture.get());
-            System.out.println("========================================>>>"+clusterFuture.get());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            connect.close();
-            clusterConnection.close();
-            redisClient.shutdown();
-            clusterClient.shutdown();
-        }
+        return RedisClusterClient.create(list);
     }
 
-    public JedisCluster getJedisClient(){
+    public JedisCluster getJedisClientCluster() {
         Set<HostAndPort> jedisClusterNodes = new HashSet<>();
         //Jedis Cluster will attempt to discover cluster nodes automatically
         jedisClusterNodes.add(new HostAndPort("192.168.3.31", 6379));
@@ -71,12 +52,33 @@ public class RedisClientFactory {
         jedisClusterNodes.add(new HostAndPort("192.168.3.19", 6380));
         jedisClusterNodes.add(new HostAndPort("192.168.3.19", 6381));
         JedisCluster jc = new JedisCluster(jedisClusterNodes);
-//        jc.set("foo", "bar");
-        System.out.println(jc.get("name"));
         return jc;
     }
 
-    public static RedisClientFactory getInstance(){
+    public RedisCommands<String,String> createSyncCommands () {
+        StatefulRedisConnection<String, String> connect = getLettuceClientStandalone().connect();
+        return connect.sync();
+    }
+
+//    public RedisCommands<String,Object> createSyncCommands () {
+//        StatefulRedisConnection<String, Object> connect = getLettuceClientStandalone().connect(new StringCodec());
+//        return connect.sync();
+//    }
+
+    public RedisAdvancedClusterAsyncCommands<String,String> createASyncCommands () {
+        StatefulRedisClusterConnection<String, String> connect = getLettuceClientCluster().connect();
+        return connect.async();
+    }
+
+    public void disconnect(StatefulConnection connection) {
+        connection.close();
+    }
+
+    public void shutdownClient(AbstractRedisClient redisClient) {
+        redisClient.shutdown();
+    }
+
+    public static RedisClientFactory getInstance() {
         return new RedisClientFactory();
     }
 }
