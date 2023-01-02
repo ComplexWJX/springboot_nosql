@@ -7,12 +7,6 @@
 *.iml
 out
 gen
-redis/src/test/
-src/test/
-target/classes/com/asiainfo/NoSqlApplication.class
-target/classes/com/asiainfo/redis/
-target/classes/com/asiainfo/util/MD5Util.class
-target/classes/com/asiainfo/web/
-target/classes/config/
+target/classes/**
 target/generated-sources/
 target/test-classes/
