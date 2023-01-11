@@ -17,7 +17,7 @@ import java.util.List;
  * @Date 2023/01/02/19:38
  * @Description
  */
-@SpringBootTest
+@SpringBootTest(classes = RedisApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RedisServiceTest {
 
