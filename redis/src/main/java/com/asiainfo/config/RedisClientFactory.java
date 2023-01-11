@@ -28,7 +28,7 @@ public class RedisClientFactory {
 
     public RedisClient getLettuceClientStandalone() {
         //单机
-        return RedisClient.create("redis://@localhost:6379");
+        return RedisClient.create("redis://redis:123456@10.62.10.162:6379");
     }
 
     public RedisClusterClient getLettuceClientCluster() {

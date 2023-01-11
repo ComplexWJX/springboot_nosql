@@ -15,6 +15,10 @@ import java.util.List;
 @Service
 public class RedisListService {
 
+    public RedisListService() {
+        System.out.println("");
+    }
+
     private final RedisCommands<String, String> redisCommands = RedisClientFactory.getInstance().getLettuceClientStandalone().connect().sync();
 
     /**

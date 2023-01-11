@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Date 2023/01/02/19:59
  * @Description
  */
-@SpringBootApplication(scanBasePackages = "com.asiainfo.redis")
+@SpringBootApplication(scanBasePackages = "com.asiainfo")
 public class RedisApplication {
     public static void main(String[] args) {
         SpringApplication.run(RedisApplication.class, args);
